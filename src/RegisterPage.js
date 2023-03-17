@@ -41,7 +41,7 @@ export default function RegisterPage() {
                     placeholder="e-mail"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    
+                    required
                     disabled={load}
                 />
                 <input
@@ -68,7 +68,12 @@ export default function RegisterPage() {
                     required
                     disabled={load}
                 />
-                <button disabled={load} type="submit">{load ? <ThreeDots width="50"/> : 'Cadastrar'}</button>
+                <button
+                    disabled={load}
+                    type="submit"
+                >
+                    {load ? <ThreeDots width="50" /> : 'Cadastrar'}
+                </button>
             </Form>
             <Link to="/">
                 <p>Já tem uma conta? Faça login!</p>
@@ -115,14 +120,14 @@ const Form = styled.form`
         font-size:20px;
         line-height: 25px;
         color:black;
-        background-color: ${prop => prop.load ? '#F2F2F2' : '#FFFFFF' };
+        background-color: ${prop => prop.load ? '#F2F2F2' : '#FFFFFF'};
         padding-left: 10px;
         box-sizing: border-box
         
     }
 
     input::placeholder{
-        color: ${prop => prop.load ? '#AFAFAF' : '#DBDBDB' };
+        color: ${prop => prop.load ? '#AFAFAF' : '#DBDBDB'};
     }
 
     button{
