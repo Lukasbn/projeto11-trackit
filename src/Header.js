@@ -2,7 +2,7 @@ import styled from "styled-components"
 
 export default function Header(){
     return(
-        <Topo>
+        <Topo data-test="header">
            <div>TrackIt</div>
            <img src="https://johto.legiaodosherois.com.br/wp-content/uploads/2022/09/legiao_Doup8FklbxZi.jpg" alt="Foto de Perfil" />
         </Topo>

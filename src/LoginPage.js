@@ -38,10 +38,11 @@ export default function LoginPage() {
                 <input
                     type="email"
                     placeholder="e-mail"
-                    
+                    required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     disabled={load}
+                    data-test="email-input" 
                 />
                 <input
                     type="password"
@@ -50,15 +51,17 @@ export default function LoginPage() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     disabled={load}
+                    data-test="password-input"
                 />
                 <button
                     disabled={load}
                     type="submit"
+                    data-test="login-btn"
                 >
                     {load ? <ThreeDots width="50" /> : 'Entrar'}
                 </button>
             </Form>
-            <Link to="/cadastro">
+            <Link to="/cadastro" data-test="signup-link">
                 <p>Não tem uma conta? Cadastre-se!</p>
             </Link>
         </LoginInterface>

@@ -43,6 +43,7 @@ export default function RegisterPage() {
                     onChange={(e) => setEmail(e.target.value)}
                     required
                     disabled={load}
+                    data-test="email-input"
                 />
                 <input
                     type="password"
@@ -51,6 +52,7 @@ export default function RegisterPage() {
                     onChange={(e) => setPassword(e.target.value)}
                     required
                     disabled={load}
+                    data-test="password-input"
                 />
                 <input
                     type="text"
@@ -59,6 +61,7 @@ export default function RegisterPage() {
                     onChange={(e) => setName(e.target.value)}
                     required
                     disabled={load}
+                    data-test="user-name-input"
                 />
                 <input
                     type="url"
@@ -67,15 +70,17 @@ export default function RegisterPage() {
                     onChange={(e) => setImage(e.target.value)}
                     required
                     disabled={load}
+                    data-test="user-image-input"
                 />
                 <button
                     disabled={load}
                     type="submit"
+                    data-test="signup-btn"
                 >
                     {load ? <ThreeDots width="50" /> : 'Cadastrar'}
                 </button>
             </Form>
-            <Link to="/">
+            <Link to="/" data-test="login-link">
                 <p>Já tem uma conta? Faça login!</p>
             </Link>
         </RegisterInterface>
