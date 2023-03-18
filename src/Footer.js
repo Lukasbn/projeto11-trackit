@@ -1,9 +1,15 @@
+import { useContext } from "react";
 import { buildStyles, CircularProgressbar } from "react-circular-progressbar"
 import 'react-circular-progressbar/dist/styles.css';
 import { Link } from "react-router-dom"
 import styled from "styled-components"
 
+import TrackItData from "./Context/TrackItData";
+
 export default function Footer() {
+
+    const {progresso} = useContext(TrackItData)
+
     return (
         <Rodapé data-test="menu">
             <Texto>
@@ -13,7 +19,7 @@ export default function Footer() {
                 <Link to={'/hoje'} data-test="today-link">
                     <Circulo>
                         <CircularProgressbar
-                            value="70"
+                            value={progresso}
                             text='Home'
                             background
                             backgroundPadding={6}

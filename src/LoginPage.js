@@ -1,9 +1,10 @@
 import axios from "axios"
-import { useState } from "react"
+import { useContext, useState } from "react"
 import { ThreeDots } from "react-loader-spinner"
 import { Link, useNavigate } from "react-router-dom"
 import styled from "styled-components"
 import Logo from "./Images/Logo.png"
+import TrackItData from "./Context/TrackItData"
 
 export default function LoginPage() {
     const [email, setEmail] = useState("")
@@ -11,6 +12,8 @@ export default function LoginPage() {
     const [load, setLoad] = useState(false)
 
     const navigate = useNavigate()
+
+    const {setToken,setFotoPerfil} = useContext(TrackItData)
 
     function logon(e) {
         e.preventDefault()
@@ -22,7 +25,9 @@ export default function LoginPage() {
         const promisse = axios.post(URL, body)
 
         promisse.then((res) => {
-            console.log(res)
+            // console.log(res)
+            setToken(res.data.token)
+            setFotoPerfil(res.data.image)
             navigate('/hoje')
         })
         promisse.catch((err) => {

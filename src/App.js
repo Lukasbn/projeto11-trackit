@@ -4,22 +4,35 @@ import HistoryPage from "./HistoryPage";
 import LoginPage from "./LoginPage";
 import MainPage from "./MainPage";
 import RegisterPage from "./RegisterPage";
-
+import TrackItData from "./Context/TrackItData"
+import { useState } from "react";
 
 
 export default function App() {
+  const [token, setToken] = useState('')
+  const [fotoPerfil, setFotoPerfil] = useState('')
+  const [progresso, setProgresso] = useState(55)
+
   return (
-    <>
+    <TrackItData.Provider
+      value={{
+        token,
+        setToken,
+        fotoPerfil,
+        setFotoPerfil,
+        progresso,
+        setProgresso
+      }}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<LoginPage />} />
           <Route path="/cadastro" element={<RegisterPage />} />
           <Route path="/hoje" element={<MainPage />} />
-          <Route path="/habitos" element={<HabitsPage/>} />
-          <Route path="/historico" element={<HistoryPage/>} />
+          <Route path="/habitos" element={<HabitsPage />} />
+          <Route path="/historico" element={<HistoryPage />} />
         </Routes>
       </BrowserRouter>
-    </>
+    </TrackItData.Provider>
   );
 }
 

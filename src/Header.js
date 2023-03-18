@@ -1,10 +1,15 @@
+import { useContext } from "react"
 import styled from "styled-components"
+import TrackItData from "./Context/TrackItData"
 
 export default function Header(){
+
+  const {fotoPerfil} = useContext(TrackItData)
+
     return(
         <Topo data-test="header">
            <div>TrackIt</div>
-           <img src="https://johto.legiaodosherois.com.br/wp-content/uploads/2022/09/legiao_Doup8FklbxZi.jpg" alt="Foto de Perfil" />
+           <img src={fotoPerfil} alt="Foto de Perfil" />
         </Topo>
     )
 }
