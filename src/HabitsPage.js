@@ -1,44 +1,53 @@
-import { useContext, useEffect } from "react"
+import { useContext, useEffect, useState} from "react"
 import styled from "styled-components"
 import Footer from "./Footer"
 import Header from "./Header"
 import axios from "axios"
 import TrackItData from "./Context/TrackItData"
 import CreateList from "./CreateList"
+import FormHabPg from "./FormHabPg"
 
+export default function HabitsPage() {
+    const [formulario, setFormulario] = useState(false)
+    const { token, setListaHabitos,listaHabitos } = useContext(TrackItData)
+    const [change, setChange] = useState(false)
+    const [name, setName] = useState('')
+    const [days, setDays] = useState([])
 
-export default function HabitsPage(){
-
-    const{ token, setListaHabitos} = useContext(TrackItData)
-    
-    useEffect(()=>{
+    useEffect(() => {
         const URL = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits"
         const autorização = {
-            headers: {Authorization: `Bearer ${token}` }
+            headers: { Authorization: `Bearer ${token}` }
         }
-        
-        const promisse = axios.get(URL,autorização)
+
+        const promisse = axios.get(URL, autorização)
 
         promisse.then((res) => setListaHabitos(res.data))
         promisse.catch((err) => console.log(err))
-    },[])
+    }, [formulario,change])
 
-    return(
+    function abrirformulario() {
+        setFormulario(true)
+    }
+
+    return (
         <Habitos>
-            <Header/>
+            <Header />
             <CreateHabit>
                 <p>Meus hábitos</p>
-                <button data-test="habit-create-btn">+</button>
+                <button onClick={abrirformulario} data-test="habit-create-btn">+</button>
             </CreateHabit>
-            <CreateList/>
-            <Footer/>
+            {formulario && <FormHabPg setFormulario={setFormulario} name={name} setName={setName} days={days} setDays={setDays}/>}
+            <CreateList listaHabitos={listaHabitos} token={token} setChange={setChange} change={change}/>
+            <Footer />
         </Habitos>
     )
 }
+
 const Habitos = styled.div`
     background-color: #f2f2f2;
     width:100%;
-    min-height: 100vh;
+    min-height: calc(100vh - 220px);
     padding-top: 100px;
     padding-bottom: 120px;
 `

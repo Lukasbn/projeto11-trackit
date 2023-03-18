@@ -26,6 +26,7 @@ const Topo = styled.header`
   justify-content: space-between;
   align-items: center;
   padding: 0 20px;
+  z-index: 2;
 
   div{
     font-family: 'Playball', cursive;

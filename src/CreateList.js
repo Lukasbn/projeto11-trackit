@@ -1,13 +1,28 @@
-import { useContext } from "react"
+import { useContext, useEffect, useState } from "react"
 import styled from "styled-components"
-import TrackItData from "./Context/TrackItData"
 import { BsTrash } from "react-icons/bs"
+import axios from "axios"
 
 
-export default function CreateList() {
+export default function CreateList({ listaHabitos, token, setChange, change }) {
 
-    const { listaHabitos } = useContext(TrackItData)
     const weekdays = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S']
+
+    function deletar(idHab) {
+        const verificar = window.confirm("Tem certeza que deseja excluir esse hábito ?")
+        if (verificar) {
+            const URL = `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${idHab}`
+            const autorização = {
+                headers: { Authorization: `Bearer ${token}` }
+            }
+
+            const promise = axios.delete(URL, autorização)
+
+            promise.then((res) => setChange(!change))
+            promise.catch((err) => alert(err.response.data))
+
+        }
+    }
 
     if (listaHabitos.length === 0) {
         return (
@@ -18,18 +33,18 @@ export default function CreateList() {
     }
     return (
         <div>
-            {listaHabitos.map((habitos) =>
-                <CardHabit data-test="habit-container">
+            {listaHabitos.map((habitos) => (
+                <CardHabit key={habitos.id} data-test="habit-container">
                     <p data-test="habit-name">{habitos.name}</p>
-                    <BoxDays>{weekdays.map((days, index) =>
-                        <CardDay verificar={habitos.days.includes(index+1)} data-test="habit-day">{days}</CardDay>
+                    <BoxDays>{weekdays.map((dias, index) =>
+                        <CardDay key={index} verificar={habitos.days.includes(index)} data-test="habit-day">{dias}</CardDay>
                     )}
                     </BoxDays>
-                    <div data-test="habit-delete-btn">
-                        <BsTrash color="#666666"/>
+                    <div onClick={() => deletar(habitos.id)} data-test="habit-delete-btn">
+                        <BsTrash color="#666666" />
                     </div>
                 </CardHabit>
-            )}
+            ))}
         </div>
     )
 }
