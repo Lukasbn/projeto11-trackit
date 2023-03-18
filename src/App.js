@@ -12,6 +12,18 @@ export default function App() {
   const [token, setToken] = useState('')
   const [fotoPerfil, setFotoPerfil] = useState('')
   const [progresso, setProgresso] = useState(55)
+  const [listaHabitos, setListaHabitos] = useState([
+    {
+      id: 1,
+      name: "Nome do hábito",
+      days: [1, 3, 5]
+    },
+    {
+      id: 2,
+      name: "Nome do hábito 2",
+      days: [1, 3, 4, 6]
+    }
+  ])
 
   return (
     <TrackItData.Provider
@@ -21,7 +33,9 @@ export default function App() {
         fotoPerfil,
         setFotoPerfil,
         progresso,
-        setProgresso
+        setProgresso,
+        listaHabitos, 
+        setListaHabitos
       }}>
       <BrowserRouter>
         <Routes>
