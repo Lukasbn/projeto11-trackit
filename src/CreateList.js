@@ -22,7 +22,7 @@ export default function CreateList() {
                 <CardHabit data-test="habit-container">
                     <p data-test="habit-name">{habitos.name}</p>
                     <BoxDays>{weekdays.map((days, index) =>
-                        <CardDay verificar={habitos.days.includes(index)} data-test="habit-day">{days}</CardDay>
+                        <CardDay verificar={habitos.days.includes(index+1)} data-test="habit-day">{days}</CardDay>
                     )}
                     </BoxDays>
                     <div data-test="habit-delete-btn">
