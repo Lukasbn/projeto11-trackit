@@ -9,10 +9,14 @@ import dayjs from "dayjs"
 
 export default function MainPage() {
     const weekdays = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado']
+    
     const [listaHome, setListaHome] = useState([])
-    const { token, setTotal } = useContext(TrackItData)
     const [change, setChange] = useState(false)
-    console.log(listaHome)
+
+    const { token, setTotal, tasksFeitas, total, progresso} = useContext(TrackItData)
+
+
+    console.log(tasksFeitas)
     useEffect(()=>{
         const URL = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today"
         const autorização = {
@@ -28,14 +32,14 @@ export default function MainPage() {
         promise.catch((err)=>{
             console.log(err.response.data)
         })
-    },[token,change])
+    },[token,change, setTotal])
 
     return (
         <TodayPage>
             <Header />
-            <Data>
-                <h1>{weekdays[dayjs().day()]}, {dayjs().date()}/{(dayjs().month())+1}</h1>
-                <p>Nenhum hábito concluído ainda</p>
+            <Data progresso={progresso}>
+                <h1 data-test="today">{weekdays[dayjs().day()]}, {dayjs().date()}/{(dayjs().month())+1}</h1>
+                <p data-test="today-counter" >{progresso === 0 ?  'Nenhum hábito concluído ainda' : `${progresso}% dos hábitos concluídos`}</p>
             </Data>
             <HomeList listaHome={listaHome} setChange={setChange} change={change}/>
             <Footer />
@@ -64,7 +68,7 @@ const Data = styled.div`
     p{
         font-size: 18px;
         line-height: 23px;
-        color: #BABABA;
+        color: ${prop=> prop.progresso === 0 ? '#BABABA' : '#8FC549' };
     }
 `
 

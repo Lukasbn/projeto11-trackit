@@ -20,7 +20,7 @@ export default function Footer() {
                     <Circulo>
                         <CircularProgressbar
                             value={progresso}
-                            text='Home'
+                            text='Hoje'
                             background
                             backgroundPadding={6}
                             styles={buildStyles({

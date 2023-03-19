@@ -11,7 +11,7 @@ import { useState } from "react";
 export default function App() {
   const [token, setToken] = useState('')
   const [fotoPerfil, setFotoPerfil] = useState('')
-  const [progresso, setProgresso] = useState(55)
+  const [progresso, setProgresso] = useState(0)
   const [listaHabitos, setListaHabitos] = useState([])
   const [tasksFeitas, setTasksFeitas] = useState([])
   const [total, setTotal] = useState(0)

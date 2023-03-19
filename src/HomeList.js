@@ -2,11 +2,11 @@ import styled from "styled-components"
 import { BsCheck } from "react-icons/bs"
 import TrackItData from "./Context/TrackItData"
 import axios from "axios"
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
 
 export default function HomeList({ listaHome, change, setChange}) {
 
-    const { token,setTasksFeitas,tasksFeitas } = useContext(TrackItData)
+    const { token,setTasksFeitas,tasksFeitas, total, setProgresso } = useContext(TrackItData)
 
     function toggleActive(id, feito){
         if(feito){
@@ -21,6 +21,7 @@ export default function HomeList({ listaHome, change, setChange}) {
             promisse.then((res)=>{
                 const newarray = tasksFeitas.filter(item => item !== id )
                 setTasksFeitas(newarray)
+                setProgresso(Math.floor(((newarray.length)/total)*100))
                 setChange(!change)
             })
             promisse.catch((err)=>{
@@ -39,6 +40,7 @@ export default function HomeList({ listaHome, change, setChange}) {
             promisse.then((res)=>{
                 const newarray = [...tasksFeitas, id]
                 setTasksFeitas(newarray)
+                setProgresso(Math.floor(((newarray.length)/total)*100))
                 setChange(!change)
             })
             promisse.catch((err)=>{
@@ -48,6 +50,7 @@ export default function HomeList({ listaHome, change, setChange}) {
     }
 
 
+
     if (listaHome.length === 0) {
         return (
             <TextoAlternativo>
@@ -55,18 +58,19 @@ export default function HomeList({ listaHome, change, setChange}) {
             </TextoAlternativo>
         )
     }
+    
     return (
         <div>
             {listaHome.map((data) => (
-                <CardTask key={data.id}>
+                <CardTask key={data.id} feito={data.done} atual={data.currentSequence} recorde={data.highestSequence} data-test="today-habit-container" >
                     <div>
-                        <h1>{data.name}</h1>
+                        <h1 data-test="today-habit-name">{data.name}</h1>
                         <div>
-                            <p>Sequência atual: {data.currentSequence} dias</p>
-                            <p>Seu recorde: {data.highestSequence} dias</p>
+                            <p data-test="today-habit-sequence">Sequência atual: <span>{data.currentSequence} dias</span></p>
+                            <p data-test="today-habit-record">Seu recorde: <span>{data.highestSequence} dias</span></p>
                         </div>
                     </div>
-                    <button onClick={()=>toggleActive(data.id,data.done)}>
+                    <button data-test="today-habit-check-btn" onClick={()=>toggleActive(data.id,data.done)}>
                         <BsCheck size='55px' color="#FFFFFF"></BsCheck>
                     </button>
                 </CardTask>
@@ -98,7 +102,7 @@ const CardTask = styled.div`
         height: 70px;
         border-radius: 5px;
         border: 1px solid #E7E7E7;
-        background-color: #EBEBEB;
+        background-color: ${props => props.feito ? '#8FC549' : '#EBEBEB' };
     }
 
     h1{
@@ -114,6 +118,12 @@ const CardTask = styled.div`
         color: #666666;
     }
 
+    p:nth-child(1) span{
+        color: ${props => props.feito ? '#8FC549' : '#666666' };
+    }
+    p:nth-child(2) span{
+        color: ${props => props.feito && props.currentSequence === props.highestSequence ? '#8FC549' : '#666666' };
+    }
 `
 
 
