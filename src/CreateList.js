@@ -1,4 +1,3 @@
-import { useContext, useEffect, useState } from "react"
 import styled from "styled-components"
 import { BsTrash } from "react-icons/bs"
 import axios from "axios"

@@ -24,7 +24,7 @@ export default function HabitsPage() {
 
         promisse.then((res) => setListaHabitos(res.data))
         promisse.catch((err) => console.log(err))
-    }, [formulario,change])
+    }, [formulario,change,token, setListaHabitos])
 
     function abrirformulario() {
         setFormulario(true)

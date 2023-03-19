@@ -9,7 +9,7 @@ export default function FormHabPg({ setFormulario, name, setName, days, setDays 
 
     const [load, setLoad] = useState(false)
 
-    const { token, setListaHabitos } = useContext(TrackItData)
+    const { token } = useContext(TrackItData)
 
     function selecionarDias(dia) {
         if (!days.includes(dia)) {

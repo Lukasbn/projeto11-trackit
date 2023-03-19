@@ -13,6 +13,8 @@ export default function App() {
   const [fotoPerfil, setFotoPerfil] = useState('')
   const [progresso, setProgresso] = useState(55)
   const [listaHabitos, setListaHabitos] = useState([])
+  const [tasksFeitas, setTasksFeitas] = useState([])
+  const [total, setTotal] = useState(0)
 
   return (
     <TrackItData.Provider
@@ -24,7 +26,11 @@ export default function App() {
         progresso,
         setProgresso,
         listaHabitos, 
-        setListaHabitos
+        setListaHabitos, 
+        tasksFeitas, 
+        setTasksFeitas, 
+        total, 
+        setTotal
       }}>
       <BrowserRouter>
         <Routes>
