@@ -24,24 +24,30 @@ export default function FormHabPg({ setFormulario, name, setName, days, setDays 
 
     function enviar(e) {
         e.preventDefault()
-        setLoad(true)
-        const URL = 'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits'
-        const body = { name, days }
-        const autorização = {
-            headers: { Authorization: `Bearer ${token}` }
+
+        if (days.length > 0) {
+            setLoad(true)
+            const URL = 'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits'
+            const body = { name, days }
+            const autorização = {
+                headers: { Authorization: `Bearer ${token}` }
+            }
+
+            const promise = axios.post(URL, body, autorização)
+
+            promise.then(() => {
+                setName('')
+                setDays([])
+                setFormulario(false)
+            })
+            promise.catch((err) => {
+                alert(err.response.data)
+                setLoad(false)
+            })
         }
-
-        const promise = axios.post(URL, body, autorização)
-
-        promise.then(() => {
-            setName('')
-            setDays([])
-            setFormulario(false)
-        })
-        promise.catch((err) => {
-            alert(err.response.data)
-            setLoad(false)
-        })
+        else{
+            alert('você não pode enviar um hábito sem dias marcados !')
+        }
     }
 
     function fechar() {
