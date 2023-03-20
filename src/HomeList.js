@@ -60,8 +60,8 @@ export default function HomeList({ listaHome, change, setChange}) {
                     <div>
                         <h1 data-test="today-habit-name">{data.name}</h1>
                         <div>
-                            <p data-test="today-habit-sequence">Sequência atual: <span>{data.currentSequence} dias</span></p>
-                            <p data-test="today-habit-record">Seu recorde: <span>{data.highestSequence} dias</span></p>
+                            <p>Sequência atual: <span data-test="today-habit-sequence">{data.currentSequence} dias</span></p>
+                            <p>Seu recorde: <span data-test="today-habit-record">{data.highestSequence} dias</span></p>
                         </div>
                     </div>
                     <button data-test="today-habit-check-btn" onClick={()=>toggleActive(data.id,data.done)}>
