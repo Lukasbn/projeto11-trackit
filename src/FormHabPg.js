@@ -25,7 +25,7 @@ export default function FormHabPg({ setFormulario, name, setName, days, setDays 
     function enviar(e) {
         e.preventDefault()
 
-        if (days.length > 0) {
+        if (days.length > 0 && name !== '') {
             setLoad(true)
             const URL = 'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits'
             const body = { name, days }
@@ -46,7 +46,7 @@ export default function FormHabPg({ setFormulario, name, setName, days, setDays 
             })
         }
         else{
-            alert('você não pode enviar um hábito sem dias marcados !')
+            alert('Preencha os campos para poder enviar o seu hábito')
         }
     }
 
@@ -60,7 +60,6 @@ export default function FormHabPg({ setFormulario, name, setName, days, setDays 
                 data-test="habit-name-input"
                 placeholder="nome do hábito"
                 type="text"
-                required
                 value={name}
                 disabled={load}
                 onChange={(e) => setName(e.target.value)}
