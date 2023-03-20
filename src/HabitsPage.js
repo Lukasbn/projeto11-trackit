@@ -23,7 +23,7 @@ export default function HabitsPage() {
         const promisse = axios.get(URL, autorização)
 
         promisse.then((res) => setListaHabitos(res.data))
-        promisse.catch((err) => console.log(err))
+        promisse.catch((err) => alert(err.response.data))
     }, [formulario,change,token, setListaHabitos])
 
     function abrirformulario() {

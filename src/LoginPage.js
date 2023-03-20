@@ -25,7 +25,6 @@ export default function LoginPage() {
         const promisse = axios.post(URL, body)
 
         promisse.then((res) => {
-            // console.log(res)
             setToken(res.data.token)
             setFotoPerfil(res.data.image)
             navigate('/hoje')

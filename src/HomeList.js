@@ -19,9 +19,6 @@ export default function HomeList({ listaHome, change, setChange}) {
             const promisse = axios.post(URL,body,autorização)
 
             promisse.then((res)=>{
-                const newarray = tasksFeitas.filter(item => item !== id )
-                setTasksFeitas(newarray)
-                setProgresso(Math.floor(((newarray.length)/total)*100))
                 setChange(!change)
             })
             promisse.catch((err)=>{
@@ -38,9 +35,6 @@ export default function HomeList({ listaHome, change, setChange}) {
             const promisse = axios.post(URL,body,autorização)
 
             promisse.then((res)=>{
-                const newarray = [...tasksFeitas, id]
-                setTasksFeitas(newarray)
-                setProgresso(Math.floor(((newarray.length)/total)*100))
                 setChange(!change)
             })
             promisse.catch((err)=>{

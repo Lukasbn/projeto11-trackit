@@ -9,39 +9,51 @@ import dayjs from "dayjs"
 
 export default function MainPage() {
     const weekdays = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado']
-    
+
     const [listaHome, setListaHome] = useState([])
     const [change, setChange] = useState(false)
 
-    const { token, setTotal, tasksFeitas, total, progresso} = useContext(TrackItData)
+    const { token, setTotal, tasksFeitas, total, progresso,setProgresso} = useContext(TrackItData)
 
 
-    console.log(tasksFeitas)
-    useEffect(()=>{
+    useEffect(() => {
         const URL = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today"
         const autorização = {
             headers: { Authorization: `Bearer ${token}` }
         }
 
-        const promise = axios.get(URL,autorização)
+        const promise = axios.get(URL, autorização)
 
-        promise.then((res)=>{
+        promise.then((res) => {
             setListaHome(res.data)
             setTotal(res.data.length)
         })
-        promise.catch((err)=>{
-            console.log(err.response.data)
+        promise.catch((err) => {
+            alert(err.response.data)
         })
-    },[token,change, setTotal])
+    }, [token, change, setTotal])
+
+    useEffect(() => {
+        let counter = 0
+        listaHome.forEach(data => {
+            if (data.done) {
+                counter = counter + 1
+            }
+        })
+
+        if(total > 0){
+            setProgresso(Math.floor((counter/total)*100))
+        }
+    }, [listaHome])
 
     return (
         <TodayPage>
             <Header />
             <Data progresso={progresso}>
-                <h1 data-test="today">{weekdays[dayjs().day()]}, {dayjs().date()}/{(dayjs().month())+1}</h1>
-                <p data-test="today-counter" >{progresso === 0 ?  'Nenhum hábito concluído ainda' : `${progresso}% dos hábitos concluídos`}</p>
+                <h1 data-test="today">{weekdays[dayjs().day()]}, {dayjs().date()}/{(dayjs().month()) + 1}</h1>
+                <p data-test="today-counter" >{progresso === 0 ? 'Nenhum hábito concluído ainda' : `${progresso}% dos hábitos concluídos`}</p>
             </Data>
-            <HomeList listaHome={listaHome} setChange={setChange} change={change}/>
+            <HomeList listaHome={listaHome} setChange={setChange} change={change} />
             <Footer />
         </TodayPage>
     )
@@ -68,7 +80,7 @@ const Data = styled.div`
     p{
         font-size: 18px;
         line-height: 23px;
-        color: ${prop=> prop.progresso === 0 ? '#BABABA' : '#8FC549' };
+        color: ${prop => prop.progresso === 0 ? '#BABABA' : '#8FC549'};
     }
 `
 
